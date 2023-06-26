@@ -122,7 +122,7 @@ with col_right:
         st.code("""
         for col in detailColumns:
             df.rename(columns = {col:f"<b>{col}</b>"}, inplace = True)
-        detailColumns = [f"<b>{col}</b>" for col in detailColumns]
+        detailColumns = [f"<b>{col}</b>" for col in detailColumns]"""+f"""
         st_mui_table(df2,key="table4", detailColumns={detailColumns}, detailColNum={detailColNum}, detailsHeader={detailsHeader})
         """, language="python")
 
@@ -153,7 +153,7 @@ with col_right:
             paperCSS  = { "width": '100%',  "overflow": 'hidden',"paddingBottom": '1px', "border": '2px solid red'}
 
             st.code("""
-            paperCSS  = { "width": '100%',  "overflow": 'hidden',"paddingBottom": '1px', "border": '2px solid red'}
+            paperCSS  = { "width": '100%',  "overflow": 'hidden',"paddingBottom": '1px', "border": '2px solid red'}"""+f"""
             st_mui_table(df2,key="table5", customCss={customCss}, paperStyle=paperCSS)
             """, language="python")
 

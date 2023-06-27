@@ -102,9 +102,9 @@ with col_right:
         skiplast = st.checkbox("**Skip to last Page Button**", value=True)
     pagination_label = st.text_input("**Pagination Label**", value="Rows per page",disabled= not pagination)
     minHeight = st.number_input("**Min Height**", value=200)
-    max_heigth = st.number_input("**Max Height**", value=400, disabled=pagination)
+    max_heigth = st.number_input("**Max Height**", value=400,)
     if pagination:
-        maxHeight = None
+        maxHeight = max_heigth
     else:
         maxHeight = max_heigth
 

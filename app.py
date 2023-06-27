@@ -1,5 +1,6 @@
 import streamlit  as st
 from st_mui_table import st_mui_table
+from typing import Dict
 
 import numpy as np
 import pandas as pd
@@ -94,17 +95,33 @@ col_left, col_right = st.columns((1,1))
 with col_right:
 
     pagination = st.checkbox("**Enable Pagination**", value=True)
+    col1, col2 = st.columns((1,1))
+    with col1:
+        skipfirst = st.checkbox("**Skip to first Page Button**", value=True)
+    with col2:
+        skiplast = st.checkbox("**Skip to last Page Button**", value=True)
+    pagination_label = st.text_input("**Pagination Label**", value="Rows per page",disabled= not pagination)
+    minHeight = st.number_input("**Min Height**", value=200)
+    max_heigth = st.number_input("**Max Height**", value=400, disabled=pagination)
+    if pagination:
+        maxHeight = None
+    else:
+        maxHeight = max_heigth
+
+
     size = st.selectbox("**Size**", ["small", "medium"], index=1)
     padding = st.selectbox("**Padding**", ["normal", "checkbox", "none"], index=0)
     showHeaders = st.checkbox("**Show Headers**", value=True)
     stickyHeader = st.checkbox("**Sticky Header**", value=True)
 
     st.code(f"""
-    st_mui_table(df2,key="table3", enablePagination={pagination}, size={size}, padding={padding}, showHeaders={showHeaders}, stickyHeader={stickyHeader})
+    st_mui_table(df2,key="table3", enablePagination={pagination}, size={size}, padding={padding}, showHeaders={showHeaders}, stickyHeader={stickyHeader}, maxHeight={maxHeight},
+                 minHeight={minHeight}, paginationLabel={pagination_label}, showLastButtonPagination={skiplast}, showFirstButtonPagination={skipfirst})
     """, language="python")
 
 with col_left:
-    st_mui_table(df2,key="table3", enablePagination=pagination, size=size, padding=padding, showHeaders=showHeaders, stickyHeader=stickyHeader)
+    st_mui_table(df2,key="table3", enablePagination=pagination, size=size, padding=padding, showHeaders=showHeaders, stickyHeader=stickyHeader,maxHeight=maxHeight,minHeight=minHeight,
+                 paginationLabel=pagination_label, showLastButtonPagination=skiplast, showFirstButtonPagination=skipfirst)
 
 st.divider()
 
@@ -122,7 +139,7 @@ with col_right:
         st.code("""
         for col in detailColumns:
             df.rename(columns = {col:f"<b>{col}</b>"}, inplace = True)
-        detailColumns = [f"<b>{col}</b>" for col in detailColumns]"""+f"""
+        detailColumns = [f"<b>{col}</b>" for col in detailColumns]
         st_mui_table(df2,key="table4", detailColumns={detailColumns}, detailColNum={detailColNum}, detailsHeader={detailsHeader})
         """, language="python")
 
@@ -153,7 +170,7 @@ with col_right:
             paperCSS  = { "width": '100%',  "overflow": 'hidden',"paddingBottom": '1px', "border": '2px solid red'}
 
             st.code("""
-            paperCSS  = { "width": '100%',  "overflow": 'hidden',"paddingBottom": '1px', "border": '2px solid red'}"""+f"""
+            paperCSS  = { "width": '100%',  "overflow": 'hidden',"paddingBottom": '1px', "border": '2px solid red'}
             st_mui_table(df2,key="table5", customCss={customCss}, paperStyle=paperCSS)
             """, language="python")
 

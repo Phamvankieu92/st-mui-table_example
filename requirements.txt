@@ -1,4 +1,4 @@
 streamlit
-st_mui_table==0.0.3
+st_mui_table==0.0.4
 pandas
 datetime
